@@ -1,0 +1,15 @@
+#Python files
+*.pyc
+
+#Compiled Documents
+*.pdf
+*.ps
+.DS_Store
+
+#Directories
+__pycache__/
+chemapp/migrations/
+Procfile.file
+CSV/
+venv/
+.idea/
