@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="text-center">
+        <div class="container">
+            <form method="POST" class="form-register" style="color:white">
+                {{ register_form.hidden_tag() }}
+                <br>
+                <h1 class="h3 mb-3 fort-weight-normal"> Please Create Your Account </h1>
+                <br>
+                {{ register_form.username.label() }}
+                {{ register_form.username(class="form-control", placeholder="Username") }}
+                <br>
+
+                {{ register_form.email.label() }}
+                {{ register_form.email(class="form-control", placeholder="Email") }}
+                <br>
+
+                {{ register_form.password1.label() }}
+                {{ register_form.password1(class="form-control", placeholder="Password") }}
+                <br>
+
+                {{ register_form.password2.label() }}
+                {{ register_form.password2(class="form-control", placeholder="Confirm Password") }}
+                <br>
+
+                {{ register_form.submit(class="btn btn-lg btn-block btn-primary") }}
+            </form >
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}
