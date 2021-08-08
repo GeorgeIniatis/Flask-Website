@@ -12,7 +12,8 @@ class User(db.Model):
     items = db.relationship("Item", backref='owned_user', lazy=True)
 
     def __repr__(self):
-        return f"User(id = {self.id}, username = {self.username}, email = {self.email}, budget = {self.budget}, items = {self.items} )"
+        return f"User(id = {self.id}, username = {self.username}, email = {self.email}, " \
+               f"budget = {self.budget}, items = {self.items} )"
 
 
 class Item(db.Model):
@@ -24,4 +25,5 @@ class Item(db.Model):
     owner = db.Column(db.Integer(), db.ForeignKey("user.id"))
 
     def __repr__(self):
-        return f"Item(id = {self.id}, name = {self.name}, barcode = {self.barcode}, price = {self.price}, description = {self.description}, owner = {self.owner} )"
+        return f"Item(id = {self.id}, name = {self.name}, barcode = {self.barcode}, price = {self.price}, " \
+               f"description = {self.description}, owner = {self.owner} )"
