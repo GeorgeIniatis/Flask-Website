@@ -16,12 +16,18 @@
                 {{ register_form.email(class="form-control", placeholder="Email") }}
                 <br>
 
-                {{ register_form.password1.label() }}
-                {{ register_form.password1(class="form-control", placeholder="Password") }}
+                {{ register_form.password.label() }}
+                {{ register_form.password(class="form-control", placeholder="Password") }}
                 <br>
 
-                {{ register_form.password2.label() }}
-                {{ register_form.password2(class="form-control", placeholder="Confirm Password") }}
+                {{ register_form.confirm_password.label() }}
+                {{ register_form.confirm_password(class="form-control", placeholder="Confirm Password") }}
+                <br>
+
+                <div class="checkbox mb-3">
+                    <h6> Already have an account?</h6>
+                    <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}" > Login </a>
+                </div>
                 <br>
 
                 {{ register_form.submit(class="btn btn-lg btn-block btn-primary") }}
@@ -29,8 +35,5 @@
         </div>
 
     </div>
-
-
-
 
 {% endblock %}

@@ -1,7 +1,7 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from market import app, db
-from market.models import *
-from market.forms import *
+from market.models import User,Item
+from market.forms import RegisterForm, LoginForm
 
 
 @app.route('/')
@@ -22,13 +22,21 @@ def register_page():
     if register_form.validate_on_submit():
         user_to_create = User(username=register_form.username.data,
                               email=register_form.email.data,
-                              password_hash=register_form.password1.data)
+                              password=register_form.password.data)
         db.session.add(user_to_create)
         db.session.commit()
         return redirect(url_for("market_page"))
 
-    if register_form.errors != {}:  # If there are errors from the validations
-        for error_message in register_form.errors.values():
-            print(f"Error in register page: {error_message}")
+    # Check if there are any errors
+    if register_form.errors != {}:
+        for entry in register_form.errors:
+            flash(f"Error with {entry.replace('_',' ')}: {register_form.errors[entry]}", category="danger")
 
-    return render_template("register.html", head_title="Register Pge", register_form=register_form)
+    return render_template("register.html", head_title="Register Page", register_form=register_form)
+
+@app.route('/login', methods=["GET", "POST"])
+def login_page():
+    login_form = LoginForm()
+    return render_template("login.html", head_title="Login Page", login_form=login_form)
+
+

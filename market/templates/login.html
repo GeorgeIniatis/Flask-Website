@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="text-center">
+        <div class="container">
+            <form method="POST" class="form-signin" style="color:white">
+                {{ login_form.hidden_tag() }} <!-- CSRF Protection -->
+                <br>
+                <h1 class="h3 mb-3 fort-weight-normal"> Please Login </h1>
+                <br>
+                {{ login_form.username.label() }}
+                {{ login_form.username(class="form-control", placeholder="Username") }}
+                <br>
+
+                {{ login_form.password.label() }}
+                {{ login_form.password(class="form-control", placeholder="Password") }}
+                <br>
+
+                <div class="checkbox mb-3">
+                    <h6> Don't have an account?</h6>
+                    <a class="btn btn-sm btn-secondary" href="{{ url_for('register_page') }}" > Register </a>
+                </div>
+                <br>
+
+                {{ login_form.submit(class="btn btn-lg btn-block btn-primary") }}
+            </form >
+        </div>
+
+    </div>
+
+{% endblock %}

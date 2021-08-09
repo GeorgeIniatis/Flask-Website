@@ -10,7 +10,7 @@ users = [
 
 for user in users:
     user_entry = User(id=user["id"], username=user["username"], email=user["email"],
-                      password_hash=user["password_hash"])
+                      password=user["password_hash"])
     print(user_entry)
     db.session.add(user_entry)
     db.session.commit()
