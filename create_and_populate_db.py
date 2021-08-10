@@ -1,5 +1,5 @@
-from market.models import *
 from market import db
+from market.models import User, Item
 
 db.drop_all()
 db.create_all()  # Creates DB/overwrites existing one
@@ -11,7 +11,7 @@ users = [
 for user in users:
     user_entry = User(id=user["id"], username=user["username"], email=user["email"],
                       password=user["password"])
-    print(user_entry)
+    # print(user_entry)
     db.session.add(user_entry)
     db.session.commit()
 
@@ -24,7 +24,7 @@ items = [
 for item in items:
     item_entry = Item(id=item["id"], name=item["name"], barcode=item["barcode"], price=item["price"],
                       description=item["description"])  # Creates item object
-    print(item_entry)
+    # print(item_entry)
     db.session.add(item_entry)  # Adds it to db temporarily
     db.session.commit()  # Commits the change to db permanently
 
@@ -32,7 +32,8 @@ phone = Item.query.filter_by(name="Phone").first()
 phone.owner = User.query.filter_by(username="Jorge").first().id
 db.session.commit()
 
-
-user = User.query.filter_by(username="Jorge").first()
-print(user)
-print(user.password)
+print()
+users = User.query.all()
+print(users)
+items = Item.query.all()
+print(items)

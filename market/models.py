@@ -29,12 +29,12 @@ class User(db.Model, UserMixin):
         else:
             return f"{self.budget}$"
 
-
     # Setter
     @password.setter
     def password(self, plain_text_password):
         self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode("utf-8")
 
+    # Other useful functions
     def check_password(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
