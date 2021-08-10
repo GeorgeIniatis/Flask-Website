@@ -5,12 +5,12 @@ db.drop_all()
 db.create_all()  # Creates DB/overwrites existing one
 
 users = [
-    {"id": 1, "username": "Jorge", "email": "jogeo98@hotmail.com", "password_hash": "123456"}
+    {"id": 1, "username": "Jorge", "email": "jogeo98@hotmail.com", "password": "123456"}
 ]
 
 for user in users:
     user_entry = User(id=user["id"], username=user["username"], email=user["email"],
-                      password=user["password_hash"])
+                      password=user["password"])
     print(user_entry)
     db.session.add(user_entry)
     db.session.commit()
@@ -32,6 +32,7 @@ phone = Item.query.filter_by(name="Phone").first()
 phone.owner = User.query.filter_by(username="Jorge").first().id
 db.session.commit()
 
-print()
-print(User.query.all())
-print(Item.query.all())
+
+user = User.query.filter_by(username="Jorge").first()
+print(user)
+print(user.password)
