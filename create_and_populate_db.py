@@ -28,9 +28,9 @@ for item in items:
     db.session.add(item_entry)  # Adds it to db temporarily
     db.session.commit()  # Commits the change to db permanently
 
-phone = Item.query.filter_by(name="Phone").first()
-phone.owner = User.query.filter_by(username="Jorge").first().id
-db.session.commit()
+#phone = Item.query.filter_by(name="Phone").first()
+#phone.owner = User.query.filter_by(username="Jorge").first().id
+#db.session.commit()
 
 print()
 users = User.query.all()

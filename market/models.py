@@ -38,6 +38,9 @@ class User(db.Model, UserMixin):
     def check_password(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
+    def can_purchase(self, item):
+        return self.budget >= item.price
+
     def __repr__(self):
         return f"User(id = {self.id}, username = {self.username}, email = {self.email}, " \
                f"budget = {self.budget}, items = {self.items} )"
@@ -50,6 +53,11 @@ class Item(db.Model):
     price = db.Column(db.Integer(), nullable=False)
     description = db.Column(db.String(length=1000), nullable=False, unique=True)
     owner = db.Column(db.Integer(), db.ForeignKey("user.id"))
+
+    def assign_ownership(self, user):
+        user.budget -= self.price
+        self.owner = user.id
+        db.session.commit()
 
     def __repr__(self):
         return f"Item(id = {self.id}, name = {self.name}, barcode = {self.barcode}, price = {self.price}, " \
