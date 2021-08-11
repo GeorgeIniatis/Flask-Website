@@ -18,24 +18,35 @@ def market_page():
     sell_item_form = SellItemForm()
 
     if request.method == "POST":
-        item_name = request.form.get('purchased_item')
-        item = Item.query.filter_by(name=item_name).first()
-        if item:
-            if current_user.can_purchase(item):
-                item.assign_ownership(current_user)
+        # Purchase Logic
+        p_item_name = request.form.get('purchased_item')
+        p_item = Item.query.filter_by(name=p_item_name).first()
+        if p_item:
+            if current_user.can_purchase(p_item):
+                p_item.assign_ownership(current_user)
                 flash(f"Item Purchased Successfully!", category="success")
             else:
                 flash(f"Budget too low!", category="danger")
-            return redirect(url_for("market_page"))
-        else:
-            flash(f"This Item Does Not Exist!", category="danger")
-            return redirect(url_for("market_page"))
+
+        # Sell Logic
+        s_item_name = request.form.get('sold_item')
+        s_item = Item.query.filter_by(name=s_item_name).first()
+        if s_item:
+            if current_user.can_sell(s_item):
+                s_item.unassign_ownership(current_user)
+                flash(f"Item Sold Successfully!", category="success")
+            else:
+                flash(f"You don't own this item!", category="danger")
+
+        return redirect(url_for("market_page"))
 
     elif request.method == "GET":
         items = Item.query.all()
+        owned_items = Item.query.filter_by(owner=current_user.id)
         return render_template("market.html", head_title="Market Page", items=items,
                                purchase_item_form=purchase_item_form,
-                               sell_item_form=sell_item_form)
+                               sell_item_form=sell_item_form,
+                               owned_items=owned_items)
 
 
 @app.route('/register', methods=["GET", "POST"])
